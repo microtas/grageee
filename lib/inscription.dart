@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:kia_garage/home.dart';
-import 'package:kia_garage/inscription.dart';
+import 'package:kia_garage/login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
   bool _isPasswordVisible = false;
   String _errorMessage = '';
   bool _isLoading = false;
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -35,7 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
               color: Colors.grey[50],
             ),
           ),
-          
           Center(
             child: SingleChildScrollView(
               child: Padding(
@@ -43,13 +46,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // Logo
                     Image.asset(
-                      'assets/login2.png',
+                      'assets/signup.png',
                       height: 400,
                     ),
                     const SizedBox(height: 30),
 
-                    // Login Card
+                    // Sign Up Card
                     Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -64,12 +68,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Column(
                             children: [
                               const Text(
-                                'Connexion',
+                                'Créer un compte',
                                 style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black87,
                                 ),
+                              ),
+                              const SizedBox(height: 20),
+
+                              // Name Field
+                              _buildTextFormField(
+                                label: 'Nom',
+                                icon: Icons.person,
+                                controller: _nameController,
+                                validator: (value) => value!.isEmpty ? 'Le nom est obligatoire' : null,
                               ),
                               const SizedBox(height: 20),
 
@@ -93,9 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 validator: _validatePassword,
                                 suffixIcon: IconButton(
                                   icon: Icon(
-                                    _isPasswordVisible
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
+                                    _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
                                     color: Colors.grey,
                                   ),
                                   onPressed: () {
@@ -104,6 +115,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                     });
                                   },
                                 ),
+                              ),
+                              const SizedBox(height: 10),
+
+                              // Confirm Password Field
+                              _buildTextFormField(
+                                label: 'Confirmer le Mot de Passe',
+                                hint: '********',
+                                icon: Icons.lock,
+                                controller: _confirmPasswordController,
+                                obscureText: !_isPasswordVisible,
+                                validator: (value) {
+                                  if (value != _passwordController.text) {
+                                    return 'Les mots de passe ne correspondent pas';
+                                  }
+                                  return _validatePassword(value);
+                                },
                               ),
                               const SizedBox(height: 10),
 
@@ -119,19 +146,23 @@ class _LoginScreenState extends State<LoginScreen> {
                               const SizedBox(height: 20),
 
                               // Submit Button
-                             SizedBox(
+SizedBox(
   height: 55,
   width: double.infinity,
   child: ElevatedButton(
     onPressed: () {
+      setState(() {
+        // Réinitialiser le message d'erreur avant de valider
+        _errorMessage = '';
+      });
+
       if (_formKey.currentState?.validate() ?? false) {
-        // If the form is valid, navigate to HomePage
-        Navigator.pushReplacement(
+        // Si le formulaire est valide, naviguer vers la page d'accueil
+        Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => HomePage()),
         );
       } else {
-        // Show error message if the form is invalid
         setState(() {
           _errorMessage = 'Veuillez corriger les erreurs ci-dessus.';
         });
@@ -145,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
       elevation: 4,
     ),
     child: const Text(
-      'Se Connecter',
+      'S\'inscrire',
       style: TextStyle(
         color: Colors.white,
         fontSize: 18,
@@ -154,22 +185,22 @@ class _LoginScreenState extends State<LoginScreen> {
     ),
   ),
 ),
-
-                               
-                               const SizedBox(height: 20),
+                             
+                                const SizedBox(height: 20),
                     // Navigate to Login
                     TextButton(
                       onPressed: () => Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => const SignUpScreen()),
+                        MaterialPageRoute(builder: (context) => const LoginScreen()),
                       ),
-                      child: const Text("Vous n’avez pas de compte ? Inscription"),
+                      child: const Text("Déjà un compte ? Connectez-vous"),
                     ),
                             ],
                           ),
                         ),
                       ),
                     ),
+                  
                   ],
                 ),
               ),
@@ -219,7 +250,7 @@ class _LoginScreenState extends State<LoginScreen> {
         _isLoading = false;
       });
 
-      Navigator.pushReplacement(
+      Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => HomePage()),
       );

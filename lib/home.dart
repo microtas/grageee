@@ -2,6 +2,8 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kia_garage/assistant.dart';
+import 'package:kia_garage/fiche_technique.dart';
+import 'package:kia_garage/profil.dart';
 import 'package:kia_garage/tarif.dart';
 
 
@@ -18,7 +20,7 @@ class _HomePageState extends State<HomePage> {
     HomePageContent(),
     TarifsServicesPage(),
     AssistantPage(),
-    OtherPage(title: "Profil"),
+    UserProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -38,7 +40,7 @@ class _HomePageState extends State<HomePage> {
         items: const <Widget>[
           Icon(Icons.home, size: 30),
 Icon(Icons.menu,size: 30,),
-          Icon(Icons.favorite, size: 30),
+          Icon(Icons.support_agent_outlined, size: 30),
           Icon(Icons.person, size: 30),
         ],
         onTap: _onItemTapped,
@@ -66,7 +68,6 @@ class HomePageContent extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          // Banner
           Container(
             height: 300,
             decoration: BoxDecoration(
@@ -74,104 +75,86 @@ class HomePageContent extends StatelessWidget {
                 image: AssetImage('assets/kia2.gif'),
                 fit: BoxFit.cover,
               ),
-              gradient: LinearGradient(
-                colors: [Colors.blueGrey[900]!, Colors.blueGrey[700]!],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [0.0, 0.6],
-              ),
             ),
           ),
           const SizedBox(height: 20),
-          // Liste des voitures
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: cars.length,
             itemBuilder: (context, index) {
-              return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 2,
-                      blurRadius: 10,
-                      offset: const Offset(0, 4),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CarDetailsPage(car: cars[index]),
                     ),
-                  ],
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // Image de la voiture
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(
-                        cars[index]["image"]!,
-                        width: 120,
-                        height: 80,
-                        fit: BoxFit.contain,
+                  );
+                },
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 2,
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
                       ),
-                    ),
-                    const SizedBox(width: 16),
-                    // Texte à côté de l’image
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            cars[index]["name"]!,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blueGrey[900],
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            cars[index]["price"]!,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.green[700],
-                            ),
-                          ),
-                        ],
+                    ],
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.asset(
+                          cars[index]["image"]!,
+                          width: 120,
+                          height: 80,
+                          fit: BoxFit.contain,
+                        ),
                       ),
-                    ),
-                    const Icon(
-                      Icons.arrow_forward_ios,
-                      color: Colors.blueGrey,
-                    ),
-                  ],
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              cars[index]["name"]!,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blueGrey[900],
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              cars[index]["price"]!,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green[700],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.blueGrey,
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
           ),
         ],
-      ),
-    );
-  }
-}
-
-class OtherPage extends StatelessWidget {
-  final String title;
-
-  OtherPage({required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(
-        child: Text(
-          "Ceci est la page $title",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
       ),
     );
   }

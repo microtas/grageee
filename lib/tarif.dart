@@ -30,7 +30,6 @@ class TarifsServicesPage extends StatelessWidget {
         ),
         backgroundColor: Colors.black,
         titleTextStyle: const TextStyle(color: Colors.white),
-        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Container(
         color: Colors.white,
