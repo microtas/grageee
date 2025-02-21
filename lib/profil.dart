@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kia_garage/login_screen.dart';
 
 class UserProfilePage extends StatelessWidget {
   final Map<String, String> user = {
-    'name': 'Foulen ben foulen',
-    'email': 'ki-garage@email.com',
+    'name': 'Mohamed ben ahmed',
+    'email': 'sysm6100@gmail.com',
     'phone': '29 470 179',
   };
 
@@ -12,17 +13,16 @@ class UserProfilePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[50],
      appBar: AppBar(
-  title: const Center(
-    child: Text(
-      'Mon Profil',
-      style: TextStyle(
-        fontSize: 30,
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
-      ),
-      textAlign: TextAlign.left,
+  title: Text(
+    'Mon Profil',
+    style: TextStyle(
+      fontSize: 25,
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
     ),
+    
   ),
+  centerTitle: true,
   backgroundColor: Colors.black,
   elevation: 0,
   
@@ -62,7 +62,7 @@ class UserProfilePage extends StatelessWidget {
                   Text(
                     user['name']!,
                     style: const TextStyle(
-                      fontSize: 28,
+                      fontSize: 25,
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
                     ),
@@ -72,7 +72,7 @@ class UserProfilePage extends StatelessWidget {
                   // Coordonnées avec icônes et plus d'espace vertical
                   Row(
                     children: [
-                      const Icon(Icons.email, color: Colors.black, size: 24),
+                      Icon(Icons.email, color: Colors.blue[700], size: 24),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
@@ -91,7 +91,7 @@ class UserProfilePage extends StatelessWidget {
 
                   Row(
                     children: [
-                      const Icon(Icons.phone, color: Colors.black, size: 24),
+                       Icon(Icons.phone, color: Colors.blue[700], size: 24),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
@@ -109,12 +109,17 @@ class UserProfilePage extends StatelessWidget {
                   const SizedBox(height: 30), // Espacement entre les coordonnées et le bouton
 
                   // Utilisation de l'Expanded pour ancrer le bouton en bas
+                  
                   Expanded(
                     child: Align(
                       alignment: Alignment.bottomCenter,
                       child: ElevatedButton(
                         onPressed: () {
                           // Ajoutez ici la logique pour se déconnecter
+                            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoginScreen()),
+            );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black, // Couleur d'arrière-plan noire
@@ -131,6 +136,7 @@ class UserProfilePage extends StatelessWidget {
                       ),
                     ),
                   ),
+                
                 ],
               ),
             ),

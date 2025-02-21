@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kia_garage/home.dart';
+import 'package:kia_garage/login_screen.dart';
 
 class RendezVousPage extends StatefulWidget {
   @override
@@ -67,8 +69,9 @@ class _RendezVousPageState extends State<RendezVousPage> {
         title: const Text("Prendre un Rendez-vous",style: TextStyle(fontWeight: FontWeight.bold,letterSpacing: 1.2),),
         backgroundColor: Colors.black,
         titleTextStyle: const TextStyle(color: Colors.white, fontSize: 22),
-        iconTheme: const IconThemeData(color: Colors.white),
+        //iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -193,7 +196,7 @@ class _RendezVousPageState extends State<RendezVousPage> {
                 });
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green[600],
+                backgroundColor: const Color.fromARGB(255, 26, 122, 31),
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -244,7 +247,7 @@ class _RendezVousPageState extends State<RendezVousPage> {
             ElevatedButton.icon(
               onPressed: () => _pickDate(context),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue[700],
+                backgroundColor: Colors.blue[900],
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -261,7 +264,7 @@ class _RendezVousPageState extends State<RendezVousPage> {
             ElevatedButton.icon(
               onPressed: () => _pickTime(context),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue[700],
+                backgroundColor: Colors.blue[900],
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -282,14 +285,19 @@ class _RendezVousPageState extends State<RendezVousPage> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Rendez-vous confirmé!")),
                     );
+                                 Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) =>HomePage()),
+            );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Veuillez remplir tous les champs et sélectionner une date et une heure")),
                     );
                   }
                 },
+               
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green[600],
+                  backgroundColor: Colors.green[800],
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

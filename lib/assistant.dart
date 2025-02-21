@@ -4,18 +4,18 @@ import 'package:url_launcher/url_launcher.dart';
 class AssistantPage extends StatelessWidget {
   final List<Map<String, String>> assistants = [
     {
-      'name': 'Foulen ben Foulen',
+      'name': 'Asma ben Younes',
       'position': 'assistant technique ',
       'phone': '29 470 179',
-      'email': 'sysm6100@gmail.com',
-      'logo': 'assets/technique.png', // Logo spécifique à Foulen
+      'email': 'Asma.assistante@gmail.com',
+      'logo': 'assets/technique.png', 
     },
     {
-      'name': 'Ahmed ben Ahmed',
+      'name': 'Ahmed ben Abdallah',
       'position': 'service de remorquage',
       'phone': '50 234 789',
       'email': 'ahmed.technicien@gmail.com',
-      'logo': 'assets/logo.png', // Logo spécifique à Ahmed
+      'logo': 'assets/tech.png', 
     },
   ];
 
@@ -36,22 +36,23 @@ class AssistantPage extends StatelessWidget {
     }
   }
 
-  Future<void> _launchEmail(String email) async {
-    final Uri emailUri = Uri(
-      scheme: 'mailto',
-      path: email,
-    );
+Future<void> _launchEmail(String email) async {
+  final Uri emailUri = Uri(
+    scheme: 'mailto',
+    path: email,
+    query: Uri.encodeQueryComponent('subject=Contact&body=Bonjour'),
+  );
 
-    try {
-      if (await canLaunchUrl(emailUri)) {
-        await launchUrl(emailUri);
-      } else {
-        print('Impossible d\'ouvrir l\'application de messagerie');
-      }
-    } catch (e) {
-      print('Erreur lors de l\'ouverture de l\'email: $e');
+  try {
+    if (await canLaunchUrl(emailUri)) {
+      await launchUrl(emailUri, mode: LaunchMode.externalApplication);
+    } else {
+      print('Impossible d\'ouvrir l\'application de messagerie');
     }
+  } catch (e) {
+    print('Erreur lors de l\'ouverture de l\'email: $e');
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +65,11 @@ class AssistantPage extends StatelessWidget {
               color: Colors.white,
               fontWeight: FontWeight.bold,
               letterSpacing: 1.2,
-              fontSize: 28),
-          textAlign: TextAlign.start,
+              fontSize: 25),
         ),
         backgroundColor: Colors.black,
         elevation: 10,
+        centerTitle: true,
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(20),
@@ -89,9 +90,9 @@ class AssistantPage extends StatelessWidget {
         // Replacing CircleAvatar with Image.asset
         Image.asset(
           assistant['logo']!,
-          height: 100, // Set the desired height
-          width: 100, // Set the desired width
-          fit: BoxFit.fill, // Ensure the image fits well
+          height: 100, 
+          width: 100, 
+          fit: BoxFit.fill, 
         ),
         const SizedBox(height: 20),
         Text(
@@ -122,7 +123,7 @@ class AssistantPage extends StatelessWidget {
         _buildContactButton(
           icon: Icons.email,
           label: assistant['email']!,
-          color: Colors.red,
+          color: const Color.fromARGB(255, 152, 39, 31),
           onTap: () => _launchEmail(assistant['email']!),
         ),
       ],
@@ -156,7 +157,7 @@ class AssistantPage extends StatelessWidget {
             const SizedBox(width: 10),
             Text(
               label,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 16,
                   color: Colors.black87,
                   fontWeight: FontWeight.bold),

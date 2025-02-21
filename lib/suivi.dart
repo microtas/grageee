@@ -13,19 +13,25 @@ class _RepairProgressPageState extends State<RepairProgressPage> {
     {
       "title": "Réception du véhicule",
       "icon": Icons.directions_car_filled,
-      "image": 'assets/reception.png',  
+      "image": 'assets/etape1.png',  
     },
     {
       "title": "Diagnostic en cours",
       "icon": Icons.analytics,
+      "image": 'assets/etape2.png',  
+
     },
     {
       "title": "Pièces en commande",
       "icon": Icons.shopping_cart,
+      "image": 'assets/etape3.png',  
+
     },
     {
       "title": "Réparation en cours",
       "icon": Icons.build,
+      "image": 'assets/etape4.png',  
+
     },
     {
       "title": "Contrôle qualité",
@@ -44,7 +50,7 @@ class _RepairProgressPageState extends State<RepairProgressPage> {
     if (_matriculeController.text.isNotEmpty) {
       setState(() {
         showProgress = true;
-        currentStep = 4; // Simule l'avancement
+        currentStep = 3; // Simule l'avancement
       });
     }
   }
@@ -54,9 +60,10 @@ class _RepairProgressPageState extends State<RepairProgressPage> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: const Text("Suivi de Réparation"),
+        title: const Text("Suivi de Réparation",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,),),
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -89,7 +96,7 @@ class _RepairProgressPageState extends State<RepairProgressPage> {
               child: ElevatedButton(
                 onPressed: _checkMatricule,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor:  Color.fromARGB(255, 10, 62, 139),
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

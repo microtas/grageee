@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CarDetailsPage extends StatelessWidget {
-  final Map<String, String> car;
+  final Map<String, dynamic> car;
 
   CarDetailsPage({required this.car});
 
@@ -37,16 +37,14 @@ class CarDetailsPage extends StatelessWidget {
               Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
-                
-                    child: Image.asset(
-                      car["image"]!,
-                      width: 300,
-                      height: 200,
-                      fit: BoxFit.contain,
-                    ),
+                  child: Image.asset(
+                    car["image"]!,
+                    width: 300,
+                    height: 200,
+                    fit: BoxFit.contain,
                   ),
                 ),
-              
+              ),
               const SizedBox(height: 20),
               Text(
                 "Fiche Technique",
@@ -59,12 +57,12 @@ class CarDetailsPage extends StatelessWidget {
               const SizedBox(height: 10),
               Divider(color: Colors.grey),
               _buildDetailRow(Icons.price_check, "Prix: ${car["price"]}"),
-              _buildDetailRow(Icons.car_repair, "Modèle: KIA SPORTAGE"),
-              _buildDetailRow(Icons.calendar_today, "Année: 2023"),
-              _buildDetailRow(Icons.color_lens, "Couleur: Rouge"),
-              _buildDetailRow(Icons.directions_car, "Kilométrage: 10 000 km"),
-              _buildDetailRow(Icons.settings, "Moteur: 2.0 L I4"),
-              _buildDetailRow(Icons.shuffle, "Transmission: Automatique"),
+              _buildDetailRow(Icons.car_repair, "Modèle: ${car["name"]}"),
+              _buildDetailRow(Icons.calendar_today, "Année: ${car["year"]}"),
+              _buildDetailRow(Icons.color_lens, "Couleur: ${car["color"]}"),
+              _buildDetailRow(Icons.directions_car, "Kilométrage: ${car["mileage"]}"),
+              _buildDetailRow(Icons.settings, "Moteur: ${car["engine"]}"),
+              _buildDetailRow(Icons.shuffle, "Transmission: ${car["transmission"]}"),
               const SizedBox(height: 20),
               Text(
                 "Description",
@@ -88,8 +86,8 @@ class CarDetailsPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: const Text(
-                  "Le KIA Sportage est un SUV moderne offrant confort et performance.",
+                child: Text(
+                  car["description"]!,
                   style: TextStyle(fontSize: 16, color: Colors.black87),
                 ),
               ),

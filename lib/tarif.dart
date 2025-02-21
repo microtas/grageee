@@ -71,7 +71,7 @@ class TarifsServicesPage extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Colors.green[600],
+                          color: Colors.blue[700],
                         ),
                       ),
                     ),
@@ -94,7 +94,7 @@ class TarifsServicesPage extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
-                      backgroundColor: Colors.green[500],
+                      backgroundColor: const Color.fromARGB(255, 26, 122, 31),
                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                       textStyle: const TextStyle(fontSize: 18),
                       shape: RoundedRectangleBorder(
@@ -117,7 +117,7 @@ class TarifsServicesPage extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
-                      backgroundColor: Colors.blue[500], 
+                      backgroundColor: const Color.fromARGB(255, 10, 62, 139), 
                       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                       textStyle: const TextStyle(fontSize: 18),
                       shape: RoundedRectangleBorder(
